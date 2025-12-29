@@ -1,0 +1,34 @@
+ @import "tailwindcss";
+
+ .scrollbar-hide::-webkit-scrollbar {
+     display: none;
+ }
+
+ .scrollbar-hide {
+     -ms-overflow-style: none;
+     scrollbar-width: none;
+ }
+
+ .contact-card {
+     position: relative;
+ }
+
+ .contact-card::before {
+     content: "";
+     position: absolute;
+     left: 0;
+     top: 0;
+     bottom: 0;
+     width: 2px;
+     background-color: #4D5561;
+     border-radius: 5px;
+ }
+
+ .click {
+     transition: all 0.3s ease;
+     cursor: pointer;
+ }
+
+ .click:active {
+     scale: 0.94;
+ }
