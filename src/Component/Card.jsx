@@ -3,28 +3,34 @@ function Card() {
     const [user, setuser] = useState("");
     const [useremail, setuseremail] = useState("");
     const [userphone, setuserphone] = useState("");
-    let [alluser, setalluser] = useState([]);
+    let localdata = JSON.parse(localStorage.getItem("user-data")) || []
+    let [alluser, setalluser] = useState(localdata);
     let formhandler = (e) => {
         e.preventDefault()
-        setalluser([...alluser, { useremail, userphone, user }]);
+        let olddata = [...alluser]
+        olddata.push({ useremail, userphone, user })
+        setalluser(olddata)
+        localStorage.setItem("user-data", JSON.stringify(olddata))
         setuser("")
         setuseremail("")
         setuserphone("")
     }
+
     function close(index) {
         let olduser = [...alluser]
         olduser.splice(index, 1)
         setalluser(olduser)
+        localStorage.setItem("user-data", JSON.stringify(olduser))
     }
     return (
-        <div  className="min-h-screen w-full bg-black  flex-1 p-3" >
+        <div className="min-h-screen w-full bg-black  flex-1 p-3" >
             <form onSubmit={(e) => {
                 formhandler(e)
             }}>
                 <div className=' w-ful flex flex-col md:flex-row  gap-4 p-5 '>
                     <div className='w-[30%] 
                         flex flex-col gap-4 rounded-md p-3 bg-[#17171E] text-white'>
-                        <h1 className=' text-[15px] font-bold '>Add Contect <i class="ri-contacts-book-3-fill"></i></h1>
+                        <h1 className=' text-[15px] font-bold font-serif ri-contacts-book-3-fill'>  Add Contect </h1>
                         <input required className=' border-none  w-full  border-b-gray-500  bg-[#101012] p-1    rounded-md  ' type="text" placeholder='Enter Name' value={user} onChange={(e) => setuser(e.target.value)} />
                         <input required className=' border-none   border-b-gray-500 bg-[#101012] p-1    rounded-md ' type="text" placeholder='Enter email' value={useremail} onChange={(e) => setuseremail(e.target.value)} />
                         <input required className=' border-none   border-b-gray-500] bg-[#101012] p-1    rounded-md ' type="text" placeholder='Enter number' value={userphone} onChange={(e) => setuserphone(e.target.value)} />
